@@ -2,34 +2,42 @@ import { useState } from 'react';
 
 export default function ProfileEditor({ onSave }) {
   const [name, setName] = useState('');
-  const [bio, setBio] = useState('');
-  const [links, setLinks] = useState([{ label: '', url: '' }]);
+  const [links, setLinks] = useState([{ label:'', url:'' }]);
+  const addLink = () => setLinks([...links, { label:'', url:'' }]);
 
-  const handleSave = () => {
-    onSave({ name, bio, links });
-  };
+  const handleSave = () => onSave({ name, links });
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow mt-6">
-      <h2 className="text-lg font-bold mb-4">Редагувати профіль</h2>
-      <input value={name} onChange={e => setName(e.target.value)} placeholder="Ім’я" className="w-full p-2 border mb-2" />
-      <textarea value={bio} onChange={e => setBio(e.target.value)} placeholder="Біо" className="w-full p-2 border mb-2" />
-      {links.map((link, index) => (
-        <div key={index} className="flex gap-2 mb-2">
-          <input value={link.label} onChange={e => {
-            const newLinks = [...links];
-            newLinks[index].label = e.target.value;
-            setLinks(newLinks);
-          }} placeholder="Назва" className="flex-1 p-2 border" />
-          <input value={link.url} onChange={e => {
-            const newLinks = [...links];
-            newLinks[index].url = e.target.value;
-            setLinks(newLinks);
-          }} placeholder="URL" className="flex-1 p-2 border" />
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 space-y-4 max-w-md mx-auto animate-fadeIn">
+      <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Create Profile</h2>
+      <input
+        placeholder="Name"
+        value={name}
+        onChange={e=>setName(e.target.value)}
+        className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+      />
+      {links.map((l,i)=>(
+        <div key={i} className="flex gap-2">
+          <input
+            placeholder="Label"
+            value={l.label}
+            onChange={e=>{ const nl=[...links]; nl[i].label=e.target.value; setLinks(nl); }}
+            className="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          />
+          <input
+            placeholder="URL"
+            value={l.url}
+            onChange={e=>{ const nl=[...links]; nl[i].url=e.target.value; setLinks(nl); }}
+            className="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          />
         </div>
       ))}
-      <button onClick={() => setLinks([...links, { label: '', url: '' }])} className="text-sm text-purple-600 mb-2">+ Додати лінк</button>
-      <button onClick={handleSave} className="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700">Зберегти</button>
+      <button onClick={addLink} className="text-sm text-indigo-600">+ Add Link</button>
+      <button onClick={handleSave}
+        className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition"
+      >
+        Save to IPFS
+      </button>
     </div>
   );
 }

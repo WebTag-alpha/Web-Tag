@@ -1,17 +1,24 @@
-export default function ProfileCard({ name, bio, links }) {
-    return (
-      <div className="max-w-md mx-auto bg-white p-6 rounded-xl shadow-md mt-6">
-        <img src="/avatar.png" alt="avatar" className="w-24 h-24 rounded-full mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-center">{name}</h2>
-        <p className="text-gray-600 text-center">{bio}</p>
-        <div className="mt-4 space-y-2">
-          {links.map((link, i) => (
-            <a key={i} href={link.url} className="block text-center py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    );
-  }
+export default function ProfileCard({ name, cid, links }) {
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 max-w-md mx-auto animate-slideUp">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{name}</h2>
+      {cid && (
+        <p className="text-sm text-indigo-600 mb-4 break-all">
+          CID: <a href={`https://gateway.pinata.cloud/ipfs/${cid}`} className="underline" target="_blank">{cid}</a>
+        </p>
+      )}
+      <ul className="space-y-3">
+        {links.map((link,i)=>(<li key={i}>
+          <a href={link.url}
+             className="block bg-indigo-100 dark:bg-gray-700 text-indigo-700 dark:text-indigo-300 px-4 py-2 rounded hover:bg-indigo-200 dark:hover:bg-gray-600 transition"
+             target="_blank"
+          >
+            {link.label}
+          </a>
+        </li>))}
+      </ul>
+    </div>
+  );
+}
+
   

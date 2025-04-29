@@ -1,28 +1,24 @@
-import { useWeb3 } from '../context/Web3Context';
 import { Link } from 'react-router-dom';
+import { useWallet }  from '@solana/wallet-adapter-react';
+import ThemeToggle    from './ThemeToggle';
 
 export default function Header() {
-  const { wallet } = useWeb3();
-
+  const { connected } = useWallet();
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-    <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-      <Link to="/" className="text-xl font-bold text-indigo-600">
-        WebTag
-      </Link>
-      <nav className="space-x-4">
-        <Link to="/" className="text-gray-700 hover:text-indigo-600">Home</Link>
-        <Link to="/about" className="text-gray-700 hover:text-indigo-600">About</Link>
-        {wallet ? (
-          <span className="text-green-600 font-medium">Connected</span>
-        ) : (
-          <button className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition">
-            Connect Wallet
-          </button>
-        )}
-      </nav>
-    </div>
-  </header>
+    <header className="bg-white dark:bg-gray-800 shadow sticky top-0 z-50 animate-fadeIn">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <Link to="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Link3r</Link>
+        <div className="flex items-center space-x-4">
+          <nav className="hidden md:flex space-x-6">
+            <Link to="/" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Home</Link>
+            <Link to="/profile" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Profile</Link>
+            <Link to="/create" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Create</Link>
+            <Link to="/analytics" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Analytics</Link>
+          </nav>
+          {connected && <span className="text-green-600">🔒</span>}
+          <ThemeToggle/>
+        </div>
+      </div>
+    </header>
   );
 }
-
