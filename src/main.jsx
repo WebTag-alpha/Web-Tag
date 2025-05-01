@@ -6,7 +6,7 @@ import './index.css';
 
 
 import ThemeProvider from './context/ThemeContext.jsx';
-import WalletContextProvider from './context/WalletContext.jsx';
+import {WalletContextProvider} from './context/WalletContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
