@@ -1,5 +1,7 @@
-const JWT = import.meta.env.VITE_PINATA_JWT;
+const JWT = import.meta.env.VITE_PINATA_JWT
 export async function pinJSONToIPFS(json) {
+    console.log('JWT',JWT);
+    
     const res = await fetch("https://api.pinata.cloud/pinning/pinJSONToIPFS", {
       method: "POST",
       headers: {
