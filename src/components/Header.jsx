@@ -12,11 +12,9 @@ export default function Header() {
           <nav className="hidden md:flex space-x-6">
             <Link to="/" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Home</Link>
             <Link to="/profile" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Profile</Link>
-            <Link to="/create" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Create</Link>
             <Link to="/analytics" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600">Analytics</Link>
           </nav>
           {connected && <span className="text-green-600">🔒</span>}
-          <ThemeToggle/>
         </div>
       </div>
     </header>
