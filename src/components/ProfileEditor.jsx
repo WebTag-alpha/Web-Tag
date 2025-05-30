@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 export default function ProfileEditor({ onSave, profile }) {
   const [name, setName] = useState("");
   const [links, setLinks] = useState([{ label: "", url: "" }]);
+  const [avatarFile, setAvatarFile] = useState(null);
 
   useEffect(() => {
     if (profile) {
@@ -31,7 +32,7 @@ export default function ProfileEditor({ onSave, profile }) {
       }
     }
 
-    onSave({ name, links });
+    onSave({ name, links, avatarFile }); // передаємо файл
   };
 
   return (
@@ -40,10 +41,25 @@ export default function ProfileEditor({ onSave, profile }) {
         Create Profile
       </h2>
 
+      {profile?.avatar && (
+        <img
+          src={profile.avatar}
+          alt="avatar"
+          className="w-24 h-24 rounded-full mx-auto"
+        />
+      )}
+
       <input
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+      />
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setAvatarFile(e.target.files[0])}
         className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
       />
 

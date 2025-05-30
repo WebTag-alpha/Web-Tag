@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import WalletConnect from "../components/WalletConnect";
 import ProfileEditor from "../components/ProfileEditor";
-import { pinJSONToIPFS } from "../utils/ipfs";
+import { pinJSONToIPFS, pinFileToIPFS } from "../utils/ipfs";
 
 export default function CreateProfile() {
   const { connected, publicKey } = useWallet();
@@ -26,11 +26,24 @@ export default function CreateProfile() {
   }, [cid]);
 
   const handleSave = async (profileData) => {
+    const { name, links, avatarFile } = profileData;
+
     const data = {
-      ...profileData,
+      name,
+      links,
       pubkey: publicKey.toBase58(),
       timestamp: Date.now(),
     };
+
+    if (avatarFile) {
+      try {
+        const result = await pinFileToIPFS(avatarFile);
+        data.avatar = `https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`;
+      } catch (err) {
+        console.error("Avatar upload error", err);
+      }
+    }
+
     const newCid = await pinJSONToIPFS(data);
     localStorage.setItem("profile:" + publicKey.toBase58(), newCid);
     setCid(newCid);

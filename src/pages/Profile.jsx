@@ -54,6 +54,7 @@ export default function Profile() {
         name={profile.name}
         cid={localStorage.getItem("profile:" + publicKey.toBase58())}
         links={profile.links}
+        avatar={profile?.avatar}
       />
     </div>
   );

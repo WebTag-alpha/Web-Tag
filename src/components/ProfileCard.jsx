@@ -1,13 +1,24 @@
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
-export default function ProfileCard({ name, cid, links }) {
+export default function ProfileCard({ name, cid, links, avatar }) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 max-w-md mx-auto animate-slideUp">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 ">
-          {name}
-        </h2>
+        <div className="flex items-center justify-center gap-5">
+          {avatar && (
+            <img
+              src={avatar}
+              alt="avatar"
+              className="w-20 h-20 rounded-full mx-auto"
+            />
+          )}
+
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 ">
+            {name}
+          </h2>
+        </div>
+
         <Link to="/create" className="w-5 h-5 cursor-pointer">
           <PencilIcon />
         </Link>
